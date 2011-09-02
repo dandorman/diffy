@@ -1,3 +1,4 @@
+#! /Volumes/HDD/.virtualenv/diffy/bin/python
 import sys
 import diff_match_patch as dmp_module
 from colorama import init, Fore, Style
@@ -11,8 +12,7 @@ differ = dmp_module.diff_match_patch()
 diffs = differ.diff_main(a, b)
 differ.diff_cleanupSemantic(diffs)
 
-top_line = ""
-bottom_line = ""
+top_line, bottom_line = "", ""
 i = 0
 while i < len(diffs):
   pair = diffs[i]
