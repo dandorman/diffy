@@ -17,26 +17,29 @@ class Diffy(object):
 
     top_line, bottom_line = "", ""
     for position, (action, text) in enumerate(diffs):
-
       if action == differ.DIFF_EQUAL:
         top_line += text
         bottom_line += text
 
       elif action == differ.DIFF_DELETE:
-        if position + 1 < len(diffs) and diffs[position + 1][0] != differ.DIFF_INSERT:
+        next_action, next_text = position + 1 < len(diffs) and diffs[position + 1] or (None, None)
+
+        if next_action != differ.DIFF_INSERT:
           top_line += self.engorge(text)
           bottom_line += " " * len(text)
-        elif position + 1 == len(diffs):
+        elif not next_action:
           top_line += self.engorge(text)
         else:
-          top_line += self.jaundice(text)
+          top_line += self.jaundice(text.center(max(len(next_text), len(text))))
 
       elif action == differ.DIFF_INSERT:
-        if position - 1 < 0 or diffs[position - 1][0] == differ.DIFF_EQUAL:
+        previous_action, previous_text = position - 1 >= 0 and diffs[position - 1] or (None, None)
+
+        if previous_action == differ.DIFF_EQUAL:
           bottom_line += self.putrefy(text)
           top_line += " " * len(text)
         else:
-          bottom_line += self.jaundice(text)
+          bottom_line += self.jaundice(text.center(max(len(previous_text), len(text))))
 
     return [top_line, bottom_line]
 
