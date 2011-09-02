@@ -14,7 +14,6 @@ class Diffy(object):
   def diff(self):
     differ = dmp_module.diff_match_patch()
     diffs = differ.diff_main(self.a, self.b)
-    differ.diff_cleanupSemantic(diffs)
 
     top_line, bottom_line = "", ""
     for position, (action, text) in enumerate(diffs):
@@ -57,7 +56,10 @@ class Diffy(object):
     return "\n".join(self.diff())
 
 if __name__ == "__main__":
-  a = sys.argv[-2]
-  b = sys.argv[-1]
+  if len(sys.argv) == 3:
+    a = sys.argv[-2]
+    b = sys.argv[-1]
 
-  print Diffy(a, b).output()
+    print Diffy(a, b).output()
+  else:
+    print "USAGE: diffy [a string] [another string]"
