@@ -1,4 +1,4 @@
-#! /Volumes/HDD/.virtualenv/diffy/bin/python
+#! /Volumes/HDD/ddorman/.virtualenv/diffy/bin/python
 import sys
 import diff_match_patch as dmp_module
 from colorama import init, Fore, Style
